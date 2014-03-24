@@ -1,0 +1,24 @@
+#!/bin/zsh
+
+SIM_DIR="$HOME/Library/Application Support/iPhone Simulator"
+SEARCH_TERM="$1"
+
+read_plist_key() {
+    PLIST="$1"
+    KEY="$2"
+    /usr/libexec/PlistBuddy -c "Print :$KEY" "$PLIST"
+}
+
+# See http://www.alfredforum.com/topic/5-generating-feedback-in-workflows/ 
+# for the XML output format Alfred expects
+echo '<?xml version="1.0"?>'
+echo '<items>'
+find "$SIM_DIR" -name "*.app" -type d | while read APP_PATH; do
+    INFO_PLIST="$APP_PATH/Info.plist"
+    APP_NAME="$(read_plist_key $INFO_PLIST CFBundleDisplayName)"
+    if $(echo "$APP_NAME" | grep --quiet --ignore-case "$SEARCH_TERM"); then
+        DIR_NAME="$(dirname $APP)"
+        echo "<item arg=\"$DIR_NAME\"><title>$APP_NAME</title><subtitle>$APP_PATH</subtitle></item>"
+    fi
+done
+echo '</items>'

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>org.netcetera.alfred-workflow.SimulatorAppFinder</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>38DFD2DA-6DD1-403F-8F71-499B98BCCADD</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>4EB61527-10BC-40EE-9185-E988A89344D7</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Simon Whitaker</string>
+	<key>description</key>
+	<string>Finds apps installed in the iOS simulator based on their display name</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Find Simulator Apps v0.1</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict/>
+			<key>type</key>
+			<string>alfred.workflow.action.openfile</string>
+			<key>uid</key>
+			<string>4EB61527-10BC-40EE-9185-E988A89344D7</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>sim</string>
+				<key>runningsubtext</key>
+				<string>Searching for apps matching {query}</string>
+				<key>script</key>
+				<string>./find_apps "{query}"</string>
+				<key>subtext</key>
+				<string>Search for apps matching {query}</string>
+				<key>title</key>
+				<string>Search for simulator apps</string>
+				<key>type</key>
+				<integer>5</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>38DFD2DA-6DD1-403F-8F71-499B98BCCADD</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>38DFD2DA-6DD1-403F-8F71-499B98BCCADD</key>
+		<dict>
+			<key>ypos</key>
+			<real>150</real>
+		</dict>
+		<key>4EB61527-10BC-40EE-9185-E988A89344D7</key>
+		<dict>
+			<key>ypos</key>
+			<real>150</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
