@@ -10,25 +10,23 @@ read_plist_key() {
     /usr/libexec/PlistBuddy -c "Print :$KEY" "$PLIST"
 }
 
+find_items() {
+    SEARCH_DIR="$1"
+    find "$SEARCH_DIR" -name "*.app" -type d | while read APP_PATH; do
+    INFO_PLIST="$APP_PATH/Info.plist"
+    APP_NAME="$(read_plist_key $INFO_PLIST CFBundleDisplayName)"
+    APP_NAME2="$(read_plist_key $INFO_PLIST CFBundleName)"
+    if $(echo "$APP_NAME" | grep --quiet --ignore-case "$SEARCH_TERM") || $(echo "$APP_NAME2" | grep --quiet --ignore-case "$SEARCH_TERM"); then
+        DIR_NAME="$(dirname $APP_PATH)"
+        echo "<item arg=\"$DIR_NAME\"><title>$APP_NAME</title><subtitle>$APP_PATH</subtitle></item>"
+    fi
+done
+}
+
 # See http://www.alfredforum.com/topic/5-generating-feedback-in-workflows/
 # for the XML output format Alfred expects
 echo '<?xml version="1.0"?>'
 echo '<items>'
-find "$SIM_DIR" -name "*.app" -type d | while read APP_PATH; do
-    INFO_PLIST="$APP_PATH/Info.plist"
-    APP_NAME="$(read_plist_key $INFO_PLIST CFBundleDisplayName)"
-    if $(echo "$APP_NAME" | grep --quiet --ignore-case "$SEARCH_TERM"); then
-        DIR_NAME="$(dirname $APP_PATH)"
-        echo "<item arg=\"$DIR_NAME\"><title>$APP_NAME</title><subtitle>$APP_PATH</subtitle></item>"
-    fi
-done
-find "$SIM_DIR6" -name "*.app" -type d | while read APP_PATH; do
-    INFO_PLIST="$APP_PATH/Info.plist"
-    # echo $INFO_PLIST
-    APP_NAME="$(read_plist_key $INFO_PLIST CFBundleDisplayName)"
-    if $(echo "$APP_NAME" | grep --quiet --ignore-case "$SEARCH_TERM"); then
-        DIR_NAME="$(dirname $APP_PATH)"
-        echo "<item arg=\"$DIR_NAME\"><title>$APP_NAME</title><subtitle>$APP_PATH</subtitle></item>"
-    fi
-done
+find_items $SIM_DIR
+find_items $SIM_DIR6
 echo '</items>'
