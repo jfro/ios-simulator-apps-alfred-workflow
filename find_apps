@@ -10,6 +10,38 @@ read_plist_key() {
     /usr/libexec/PlistBuddy -c "Print :$KEY" "$PLIST"
 }
 
+dirnameN() {
+    dirpath=$1
+    num=$2
+    for (( i = 0; i < $num; i++ )); do
+        dirpath="$(dirname $dirpath)"
+    done
+    echo $dirpath
+}
+
+find_device_name() {
+    device_path="$1"
+    device_name="Unknown"
+    if [[ "${device_path##$SIM_DIR6}" != $device_path ]]; then
+        device_path=$(dirnameN "$device_path" 3)
+        # catches iOS 8 sim apps which are nested further
+        if [[ $(basename $device_path) == "Containers" ]]; then
+            device_path=$(dirnameN "$device_path" 2)
+        fi
+        device_path="$device_path/device.plist"
+        if [[ -e $device_path ]]; then
+            device_version=$(read_plist_key "$device_path" "runtime")
+            device_version=("${(s/./)device_version}")
+            device_version=$device_version[-1]
+            device_name="$(read_plist_key "$device_path" "name") - $device_version"
+        fi
+    else
+        device_path=$(dirnameN "$device_path" 2)
+        device_name=$(basename "$device_path")
+    fi
+    echo $device_name
+}
+
 find_items() {
     SEARCH_DIR="$1"
     find "$SEARCH_DIR" -name "*.app" -type d | while read APP_PATH; do
@@ -20,7 +52,8 @@ find_items() {
     fi
     if $(echo "$APP_NAME" | grep --quiet --ignore-case "$SEARCH_TERM"); then
         DIR_NAME="$(dirname $APP_PATH)"
-        echo "<item arg=\"$DIR_NAME\"><title>$APP_NAME</title><subtitle>$APP_PATH</subtitle></item>"
+        device_name=$(find_device_name "$DIR_NAME")
+        echo "<item arg=\"$DIR_NAME\"><title>$APP_NAME ($device_name)</title><subtitle>$APP_PATH</subtitle></item>"
     fi
 done
 }
