@@ -19,6 +19,18 @@ dirnameN() {
     echo $dirpath
 }
 
+find_data_path() {
+    app_id="$1"
+    app_path="$2"
+    for plistPath in "${app_path}/../../../Data/Application"/*/.com.apple.mobile_container_manager.metadata.plist; do
+        metadataIdentifier="$(read_plist_key $plistPath MCMMetadataIdentifier)"
+        if [[ $metadataIdentifier == $app_id ]]; then
+            echo $(dirname $plistPath)
+            break
+        fi
+    done
+}
+
 find_device_name() {
     device_path="$1"
     device_name="Unknown"
@@ -48,17 +60,37 @@ find_device_name() {
 find_items() {
     SEARCH_DIR="$1"
     find "$SEARCH_DIR" -name "*.app" -type d | while read APP_PATH; do
-    INFO_PLIST="$APP_PATH/Info.plist"
-    APP_NAME="$(read_plist_key $INFO_PLIST CFBundleDisplayName)"
-    if [ -z "$APP_NAME" ]; then
-        APP_NAME="$(read_plist_key $INFO_PLIST CFBundleName)"
-    fi
-    if $(echo "$APP_NAME" | grep --quiet --ignore-case "$SEARCH_TERM"); then
-        DIR_NAME="$(dirname $APP_PATH)"
-        device_name=$(find_device_name "$DIR_NAME")
-        echo "<item arg=\"$DIR_NAME\"><title>$APP_NAME ($device_name)</title><subtitle>$APP_PATH</subtitle></item>"
-    fi
-done
+        INFO_PLIST="$APP_PATH/Info.plist"
+        APP_NAME="$(read_plist_key $INFO_PLIST CFBundleDisplayName)"
+        if [ -z "$APP_NAME" ]; then
+            APP_NAME="$(read_plist_key $INFO_PLIST CFBundleName)"
+        fi
+        if $(echo "$APP_NAME" | grep --quiet --ignore-case "$SEARCH_TERM"); then
+            DIR_NAME="$(dirname $APP_PATH)"
+            device_name=$(find_device_name "$DIR_NAME")
+            echo "<item arg=\"$DIR_NAME\"><title>$APP_NAME ($device_name)</title><subtitle>$APP_PATH</subtitle></item>"
+        fi
+    done
+}
+
+find_sim6_items() {
+    SEARCH_DIR="$1"
+    find "$SEARCH_DIR" -name "*.app" -type d | while read APP_PATH; do
+        INFO_PLIST="$APP_PATH/Info.plist"
+        APP_NAME="$(read_plist_key $INFO_PLIST CFBundleDisplayName)"
+        APP_ID="$(read_plist_key $INFO_PLIST CFBundleIdentifier)"
+        if [ -z "$APP_NAME" ]; then
+            APP_NAME="$(read_plist_key $INFO_PLIST CFBundleName)"
+        fi
+        if $(echo "$APP_NAME" | grep --quiet --ignore-case "$SEARCH_TERM"); then
+            DIR_NAME="$(dirname $APP_PATH)"
+            device_name=$(find_device_name "$DIR_NAME")
+            data_path=$(find_data_path "$APP_ID" "$DIR_NAME")
+            if [ -n "$data_path" ]; then
+                echo "<item arg=\"$data_path\"><title>$APP_NAME ($device_name)</title><subtitle>$APP_PATH</subtitle></item>"
+            fi
+        fi
+    done
 }
 
 # See http://www.alfredforum.com/topic/5-generating-feedback-in-workflows/
@@ -66,5 +98,5 @@ done
 echo '<?xml version="1.0"?>'
 echo '<items>'
 find_items $SIM_DIR
-find_items $SIM_DIR6
+find_sim6_items $SIM_DIR6
 echo '</items>'
