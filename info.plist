@@ -19,6 +19,28 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>8C7D1146-E66D-46AF-9EDE-A63D50164F16</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>963E6413-9DDC-4642-A184-14764565F549</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>963E6413-9DDC-4642-A184-14764565F549</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>04421F78-4E29-45C8-95EC-987A6F26F016</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Simon Whitaker</string>
@@ -69,11 +91,85 @@
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Uninstall Simulator App</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>04421F78-4E29-45C8-95EC-987A6F26F016</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>126</integer>
+				<key>script</key>
+				<string>python ./uninstall_app.py {query}</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>963E6413-9DDC-4642-A184-14764565F549</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>keyword</key>
+				<string>simdel</string>
+				<key>runningsubtext</key>
+				<string>Please wait</string>
+				<key>script</key>
+				<string>python ./find_app_ids.py "{query}"</string>
+				<key>subtext</key>
+				<string>Results here</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>8C7D1146-E66D-46AF-9EDE-A63D50164F16</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
 	<key>uidata</key>
 	<dict>
+		<key>04421F78-4E29-45C8-95EC-987A6F26F016</key>
+		<dict>
+			<key>ypos</key>
+			<real>210</real>
+		</dict>
 		<key>38DFD2DA-6DD1-403F-8F71-499B98BCCADD</key>
 		<dict>
 			<key>ypos</key>
@@ -82,7 +178,17 @@
 		<key>4EB61527-10BC-40EE-9185-E988A89344D7</key>
 		<dict>
 			<key>ypos</key>
-			<real>150</real>
+			<real>60</real>
+		</dict>
+		<key>8C7D1146-E66D-46AF-9EDE-A63D50164F16</key>
+		<dict>
+			<key>ypos</key>
+			<real>270</real>
+		</dict>
+		<key>963E6413-9DDC-4642-A184-14764565F549</key>
+		<dict>
+			<key>ypos</key>
+			<real>240</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
