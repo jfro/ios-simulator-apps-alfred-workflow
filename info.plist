@@ -27,7 +27,7 @@
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>Find Simulator Apps v0.1</string>
+	<string>Find Simulator Apps</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -38,7 +38,7 @@
 			<key>uid</key>
 			<string>4EB61527-10BC-40EE-9185-E988A89344D7</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -52,13 +52,13 @@
 				<key>runningsubtext</key>
 				<string>Searching for apps matching {query}</string>
 				<key>script</key>
-				<string>./find_apps "{query}"</string>
+				<string>python ./find_sim_apps.py "{query}"</string>
 				<key>subtext</key>
 				<string>Search for apps matching {query}</string>
 				<key>title</key>
 				<string>Search for simulator apps</string>
 				<key>type</key>
-				<integer>5</integer>
+				<integer>0</integer>
 				<key>withspace</key>
 				<true/>
 			</dict>
