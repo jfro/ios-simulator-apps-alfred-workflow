@@ -3,7 +3,7 @@
 
 
 from workflow import Workflow
-from os.path import expanduser, join, dirname, basename
+from os.path import expanduser, join, dirname, basename, isfile
 import glob
 from subprocess import check_output, CalledProcessError, STDOUT
 import re
@@ -48,14 +48,18 @@ def get_sim6_data_paths():
 
 def get_app_icon(appPath):
     plistPath = join(appPath, 'Info.plist')
-    keyPrefixes = ['CFBundleIcons', 'CFBundleIcons~ipad', 'CFBundleIcons~iphone']
-    for prefix in keyPrefixes:
+    devices = ['', '~ipad', '~iphone']
+    for device in devices:
         for x in [2,1,0]:
-            key = '%s:CFBundlePrimaryIcon:CFBundleIconFiles:%i' % (prefix, x)
+            key = 'CFBundleIcons%s:CFBundlePrimaryIcon:CFBundleIconFiles:%i' % (device, x)
             icon = get_plist_key(plistPath, key)
             if icon:
-                icon = join(appPath, icon + '~ipad.png')
-                return icon
+                iconPath = join(appPath, icon + '%s.png' % (device))
+                if not isfile(iconPath):
+                    iconPath = join(appPath, icon + '@2x%s.png' % (device))
+                if not isfile(iconPath):
+                    iconPath = None
+                return iconPath
 
     return None
 
