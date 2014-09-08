@@ -19,7 +19,7 @@ def get_plist_key(path, key):
         return result.strip()
     except CalledProcessError, e:
         pass
-    return "Unknown"
+    return None
 
 def get_device_id_for_app_path(path):
     m = re.search('CoreSimulator/Devices/([\w\d\-]+)/data', path)
@@ -46,6 +46,19 @@ def get_sim6_data_paths():
             pathLookup[appId] = dirname(file)
     return pathLookup
 
+def get_app_icon(appPath):
+    plistPath = join(appPath, 'Info.plist')
+    keyPrefixes = ['CFBundleIcons', 'CFBundleIcons~ipad', 'CFBundleIcons~iphone']
+    for prefix in keyPrefixes:
+        for x in [2,1,0]:
+            key = '%s:CFBundlePrimaryIcon:CFBundleIconFiles:%i' % (prefix, x)
+            icon = get_plist_key(plistPath, key)
+            if icon:
+                icon = join(appPath, icon + '~ipad.png')
+                return icon
+
+    return None
+
 def get_sim6_items(data_paths, devices_info):
     appPaths = []
     for file in glob.glob(SIM_DIRAPP_SEARCH):
@@ -55,15 +68,18 @@ def get_sim6_items(data_paths, devices_info):
             dataPath = data_paths[appId]
         else:
             dataPath = ''
-
+        appName = get_plist_key(plistPath, 'CFBundleDisplayName')
+        if not appName:
+            appName = basename(file)
         deviceId = get_device_id_for_app_path(file)
         appInfo = {
             'id': appId,
             'path': file,
             'short_path': basename(file),
-            'name': get_plist_key(plistPath, 'CFBundleDisplayName'),
+            'name': appName,
             'data_path': dataPath,
-            'device': devices_info[deviceId]
+            'device': devices_info[deviceId],
+            'icon': get_app_icon(file)
         }
         appPaths.append(appInfo)
     return appPaths
@@ -74,7 +90,6 @@ def main(wf):
     devices_info = get_device_infos()
     def get_items():
         return get_sim6_items(data_paths, devices_info)
-    # apps = get_sim6_items(DATA_PATHS, devices_info)
     apps = wf.cached_data('sim6_items', get_items, max_age=600)
     # Record our progress in the log file
     wf.logger.debug('{} Apps cached'.format(len(apps)))

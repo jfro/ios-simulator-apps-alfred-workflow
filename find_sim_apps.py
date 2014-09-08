@@ -11,9 +11,8 @@ from workflow.background import run_in_background, is_running
 def search_key_for_app(app):
     """Generate a string search key for a app"""
     elements = []
-    elements.append(app['name'])  # title of post
-    elements.append(app['id'])  # post tags
-    # elements.append(app['extended'])  # description
+    elements.append(app['name'])
+    elements.append(app['id'])
     return u' '.join(elements)
 
 
@@ -22,17 +21,13 @@ def main(wf):
     # build argument parser to parse script args and collect their
     # values
     parser = argparse.ArgumentParser()
-    # add an optional (nargs='?') --apikey argument and save its
-    # value to 'apikey' (dest). This will be called from a separate "Run Script"
-    # action with the API key
-    # parser.add_argument('--setkey', dest='apikey', nargs='?', default=None)
-    # add an optional query and save it to 'query'
+
     parser.add_argument('query', nargs='?', default=None)
     # parse the script's arguments
     args = parser.parse_args(wf.args)
 
     ####################################################################
-    # View/filter Pinboard posts
+    # View/filter Simulator apps
     ####################################################################
 
     query = args.query
@@ -48,10 +43,10 @@ def main(wf):
         run_in_background('update', cmd)
 
     # Notify the user if the cache is being updated
-    if is_running('update'):
-        wf.add_item('Getting new apps from disk',
-                    valid=False,
-                    icon=ICON_INFO)
+    # if is_running('update'):
+    #     wf.add_item('Getting new apps from disk',
+    #                 valid=False,
+    #                 icon=ICON_INFO)
 
     # If script was passed a query, use it to filter posts if we have some
     if query and apps:
@@ -66,11 +61,12 @@ def main(wf):
     # the list of results for Alfred
     for app in apps:
         appName = '%s (%s - %s)' % (app['name'], app['device']['name'], app['device']['runtime'])
+
         wf.add_item(title=appName,
                     subtitle=app['short_path'],
                     arg=app['data_path'],
                     valid=True,
-                    icon=ICON_WEB)
+                    icon=app['icon'])
 
     # Send the results to Alfred as XML
     wf.send_feedback()
