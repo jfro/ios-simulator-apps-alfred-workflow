@@ -43,7 +43,8 @@ def get_sim6_data_paths():
     for file in glob.glob(join(SIM_DIR6, 'Data/Application/*/.com.apple.mobile_container_manager.metadata.plist')):
         appId = get_plist_key(file, 'MCMMetadataIdentifier')
         if appId:
-            pathLookup[appId] = dirname(file)
+            lookupKey = get_device_id_for_app_path(file) + '-' + appId
+            pathLookup[lookupKey] = dirname(file)
     return pathLookup
 
 def get_app_icon(appPath):
@@ -66,16 +67,17 @@ def get_app_icon(appPath):
 def get_sim6_items(data_paths, devices_info):
     appPaths = []
     for file in glob.glob(SIM_DIRAPP_SEARCH):
+        deviceId = get_device_id_for_app_path(file)
         plistPath = join(file, 'Info.plist')
         appId = get_plist_key(plistPath, 'CFBundleIdentifier')
-        if appId in data_paths:
-            dataPath = data_paths[appId]
+        lookupKey = deviceId + '-' + appId
+        if lookupKey in data_paths:
+            dataPath = data_paths[lookupKey]
         else:
             dataPath = ''
         appName = get_plist_key(plistPath, 'CFBundleDisplayName')
         if not appName:
             appName = basename(file)
-        deviceId = get_device_id_for_app_path(file)
         appInfo = {
             'id': appId,
             'path': file,
