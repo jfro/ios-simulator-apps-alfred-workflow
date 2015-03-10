@@ -6,7 +6,7 @@ import argparse
 from workflow import (Workflow, ICON_WEB, ICON_INFO, ICON_WARNING,
                       PasswordNotFound)
 from workflow.background import run_in_background, is_running
-
+import siminfo
 
 def search_key_for_app(app):
     """Generate a string search key for a app"""
@@ -32,21 +32,8 @@ def main(wf):
 
     query = args.query
 
-    # Get posts from cache. Set `data_func` to None, as we don't want to
-    # update the cache in this script and `max_age` to 0 because we want
-    # the cached data regardless of age
-    apps = wf.cached_data('sim6_items', None, max_age=0)
-
-    # Start update script if cached data is too old (or doesn't exist)
-    if not wf.cached_data_fresh('apps', max_age=600):
-        cmd = ['/usr/bin/python', wf.workflowfile('update.py')]
-        run_in_background('update', cmd)
-
-    # Notify the user if the cache is being updated
-    # if is_running('update'):
-    #     wf.add_item('Getting new apps from disk',
-    #                 valid=False,
-    #                 icon=ICON_INFO)
+    
+    apps = siminfo.getSimAppResults(wf.cachedir)
 
     # If script was passed a query, use it to filter posts if we have some
     if query and apps:
