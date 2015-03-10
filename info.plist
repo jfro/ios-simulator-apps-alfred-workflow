@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>com.buttered-cat.alfred-workflow.SimulatorAppFinder</string>
+	<string>com.buttered-cat.alfred-workflow.iOSSimulator</string>
 	<key>category</key>
 	<string>Productivity</string>
 	<key>connections</key>
@@ -67,28 +67,18 @@
 	<key>createdby</key>
 	<string>Jeremy Knope</string>
 	<key>description</key>
-	<string>Finds apps installed in the iOS simulator based on their display name</string>
+	<string>Find &amp; delete sim apps, erase simulators, and more</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>Find Simulator Apps</string>
+	<string>iOS Simulator v1.1</string>
 	<key>objects</key>
 	<array>
 		<dict>
 			<key>config</key>
-			<dict/>
-			<key>type</key>
-			<string>alfred.workflow.action.openfile</string>
-			<key>uid</key>
-			<string>4EB61527-10BC-40EE-9185-E988A89344D7</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
 			<dict>
 				<key>argumenttype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>keyword</key>
@@ -118,6 +108,53 @@
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>38DFD2DA-6DD1-403F-8F71-499B98BCCADD</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict/>
+			<key>type</key>
+			<string>alfred.workflow.action.openfile</string>
+			<key>uid</key>
+			<string>4EB61527-10BC-40EE-9185-E988A89344D7</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>keyword</key>
+				<string>simdel</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Please wait</string>
+				<key>script</key>
+				<string>python ./find_app_ids.py "{query}"</string>
+				<key>subtext</key>
+				<string>Uninstalls selected app from its simualtor</string>
+				<key>title</key>
+				<string>Uninstall Simulator App</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>8C7D1146-E66D-46AF-9EDE-A63D50164F16</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -167,34 +204,20 @@
 			<key>config</key>
 			<dict>
 				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>escaping</key>
-				<integer>127</integer>
+				<integer>2</integer>
 				<key>keyword</key>
-				<string>simdel</string>
-				<key>queuedelaycustom</key>
-				<integer>1</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<false/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>Please wait</string>
-				<key>script</key>
-				<string>python ./find_app_ids.py "{query}"</string>
+				<string>simreset</string>
 				<key>subtext</key>
-				<string>Results here</string>
-				<key>type</key>
-				<integer>0</integer>
+				<string>Resets all iOS simulators in all found Xcodes</string>
+				<key>text</key>
+				<string>Reset iOS Simulators</string>
 				<key>withspace</key>
-				<true/>
+				<false/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
+			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
-			<string>8C7D1146-E66D-46AF-9EDE-A63D50164F16</string>
+			<string>15E7ABF3-218E-47E5-B120-83DEBC938433</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -226,6 +249,43 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>keyword</key>
+				<string>simerase</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Please wait</string>
+				<key>script</key>
+				<string>python ./find_device_ids.py {query}</string>
+				<key>subtext</key>
+				<string>Erases simulator devices</string>
+				<key>title</key>
+				<string>Erase Simulator Devices</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>2654A082-D0EF-44A3-8D50-74C583FFCCE6</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
@@ -237,27 +297,6 @@
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
 			<string>0F91FB1D-068E-48DE-AF19-A5DFA2A1A2F3</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>simreset</string>
-				<key>subtext</key>
-				<string>Resets all iOS simulators in all found Xcodes</string>
-				<key>text</key>
-				<string>Reset iOS Simulators</string>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>15E7ABF3-218E-47E5-B120-83DEBC938433</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -279,12 +318,17 @@
 		<key>15E7ABF3-218E-47E5-B120-83DEBC938433</key>
 		<dict>
 			<key>ypos</key>
-			<real>390</real>
+			<real>240</real>
+		</dict>
+		<key>2654A082-D0EF-44A3-8D50-74C583FFCCE6</key>
+		<dict>
+			<key>ypos</key>
+			<real>360</real>
 		</dict>
 		<key>38DFD2DA-6DD1-403F-8F71-499B98BCCADD</key>
 		<dict>
 			<key>ypos</key>
-			<real>150</real>
+			<real>40</real>
 		</dict>
 		<key>4EB61527-10BC-40EE-9185-E988A89344D7</key>
 		<dict>
@@ -299,7 +343,7 @@
 		<key>8C7D1146-E66D-46AF-9EDE-A63D50164F16</key>
 		<dict>
 			<key>ypos</key>
-			<real>270</real>
+			<real>140</real>
 		</dict>
 		<key>963E6413-9DDC-4642-A184-14764565F549</key>
 		<dict>
