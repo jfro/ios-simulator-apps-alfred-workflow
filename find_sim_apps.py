@@ -3,6 +3,7 @@
 
 import sys
 import argparse
+import siminfo
 from workflow import (Workflow, ICON_WEB, ICON_INFO, ICON_WARNING,
                       PasswordNotFound)
 from workflow.background import run_in_background, is_running
@@ -35,12 +36,13 @@ def main(wf):
     # Get posts from cache. Set `data_func` to None, as we don't want to
     # update the cache in this script and `max_age` to 0 because we want
     # the cached data regardless of age
-    apps = wf.cached_data('sim6_items', None, max_age=0)
+    # apps = wf.cached_data('sim6_items', None, max_age=0)
+    apps = siminfo.getSimAppResults(wf.cachedir)
 
     # Start update script if cached data is too old (or doesn't exist)
-    if not wf.cached_data_fresh('apps', max_age=600):
-        cmd = ['/usr/bin/python', wf.workflowfile('update.py')]
-        run_in_background('update', cmd)
+    # if not wf.cached_data_fresh('apps', max_age=0):
+    #     cmd = ['/usr/bin/python', wf.workflowfile('update.py')]
+    #     run_in_background('update', cmd)
 
     # Notify the user if the cache is being updated
     # if is_running('update'):
@@ -66,7 +68,8 @@ def main(wf):
                     subtitle=app['short_path'],
                     arg=app['data_path'],
                     valid=True,
-                    icon=app['icon'])
+                    icon=app['icon'],
+                    uid=app['data_path'])
 
     # Send the results to Alfred as XML
     wf.send_feedback()

@@ -2,16 +2,52 @@
 # encoding: utf-8
 
 
-from workflow import Workflow
-from os.path import expanduser, join, dirname, basename, isfile
+#from workflow import Workflow
+from os.path import expanduser, join, dirname, basename, isfile, realpath
 import glob
 from subprocess import check_output, CalledProcessError, STDOUT
 import re
+import cPickle
 
 HOME = expanduser("~")
 SIM_DIR = join(HOME, "Library/Application\ Support/iPhone\ Simulator/7.1/Applications/*/*.app")
 SIM_DIR6 = join(HOME, "Library/Developer/CoreSimulator/Devices/*/data/Containers")
 SIM_DIRAPP_SEARCH = join(SIM_DIR6, 'Bundle/Application/*/*.app')
+
+class DeviceInfo(object):
+    def __init__(self, cachePath):
+        self.cacheFilePath = join(cachePath, 'devices.cache')
+        self.devices = {}
+        self.cacheIsDirty = False
+        if isfile(self.cacheFilePath):
+            cacheFile = file(self.cacheFilePath)
+            cache = cPickle.load(cacheFile)
+            if cache:
+                self.devices = cache
+
+    def infoForDevice(self, deviceID):
+        if deviceID in self.devices:
+            return self.devices[deviceID]
+        else:
+            # no cache yet, read it in
+            plist = join(HOME, "Library/Developer/CoreSimulator/Devices/", deviceID, "device.plist")
+            if isfile(plist):
+                deviceName = get_plist_key(plist, 'name')
+                deviceRuntime = get_plist_key(plist, 'runtime')
+                deviceRuntime = deviceRuntime.split('.')[-1].split('-')
+                deviceRuntime = '%s %s.%s' % (deviceRuntime[0], deviceRuntime[1], deviceRuntime[2])
+                result = {'name': deviceName, 'id': deviceID, 'runtime': deviceRuntime}
+                self.devices[deviceID] = result
+                self.cacheIsDirty = True
+                return result
+            #else:
+            #    print "Device %s missing device.plist: %s" % (deviceID, plist)
+        return None
+    def updateCache(self):
+        if self.cacheIsDirty:
+            cacheFile = file(self.cacheFilePath, "w+")
+            cPickle.dump(self.devices, cacheFile)
+
 
 def get_plist_key(path, key):
     try:
@@ -30,6 +66,8 @@ def get_device_infos():
     devicePaths = glob.glob(join(HOME, "Library/Developer/CoreSimulator/Devices/*"))
     for devicePath in devicePaths:
         plist = join(devicePath, 'device.plist')
+        if not isfile(plist):
+            continue
         deviceId = basename(devicePath)
         deviceName = get_plist_key(plist, 'name')
         deviceRuntime = get_plist_key(plist, 'runtime')
@@ -64,7 +102,7 @@ def get_app_icon(appPath):
 
     return None
 
-def get_sim6_items(data_paths, devices_info):
+def get_sim6_items(data_paths, device_info):
     appPaths = []
     for file in glob.glob(SIM_DIRAPP_SEARCH):
         deviceId = get_device_id_for_app_path(file)
@@ -84,22 +122,40 @@ def get_sim6_items(data_paths, devices_info):
             'short_path': basename(file),
             'name': appName,
             'data_path': dataPath,
-            'device': devices_info[deviceId],
+            'device': device_info.infoForDevice(deviceId),
             'icon': get_app_icon(file)
         }
         appPaths.append(appInfo)
     return appPaths
 
+def getSimAppResults(cachePath):
+    data_paths = get_sim6_data_paths()
+    #devices_info = get_device_infos()
+    device_info = DeviceInfo(cachePath)
+    def get_items():
+        #wf.logger.debug('Finding apps')
+        return get_sim6_items(data_paths, device_info)
+    apps = get_sim6_items(data_paths, device_info) #wf.cached_data('sim6_items', get_items, max_age=0)
+    device_info.updateCache()
+    return apps
 
 def main(wf):
     data_paths = get_sim6_data_paths()
-    devices_info = get_device_infos()
+    #devices_info = get_device_infos()
+    device_info = DeviceInfo(wf.cachedir)
     def get_items():
-        return get_sim6_items(data_paths, devices_info)
-    apps = wf.cached_data('sim6_items', get_items, max_age=600)
+        print "What"
+        #wf.logger.debug('Finding apps')
+        return get_sim6_items(data_paths, device_info)
+    apps = get_sim6_items(data_paths, device_info) #wf.cached_data('sim6_items', get_items, max_age=0)
+    print "Done: "
+    print len(apps)
+    device_info.updateCache()
     # Record our progress in the log file
-    wf.logger.debug('{} Apps cached'.format(len(apps)))
+    #wf.logger.debug('{} Apps cached'.format(len(apps)))
 
 if __name__ == '__main__':
-    wf = Workflow()
-    wf.run(main)
+    #wf = Workflow()
+    #wf.run(main)
+    main(None)
+

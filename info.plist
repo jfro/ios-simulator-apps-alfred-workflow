@@ -3,11 +3,33 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>org.netcetera.alfred-workflow.SimulatorAppFinder</string>
+	<string>com.buttered-cat.alfred-workflow.SimulatorAppFinder</string>
 	<key>category</key>
 	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
+		<key>0F91FB1D-068E-48DE-AF19-A5DFA2A1A2F3</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>7A9B4E1F-0B3A-40F9-A85A-201C599CDD90</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>15E7ABF3-218E-47E5-B120-83DEBC938433</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>0F91FB1D-068E-48DE-AF19-A5DFA2A1A2F3</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>38DFD2DA-6DD1-403F-8F71-499B98BCCADD</key>
 		<array>
 			<dict>
@@ -43,7 +65,7 @@
 		</array>
 	</dict>
 	<key>createdby</key>
-	<string>Simon Whitaker</string>
+	<string>Jeremy Knope</string>
 	<key>description</key>
 	<string>Finds apps installed in the iOS simulator based on their display name</string>
 	<key>disabled</key>
@@ -71,6 +93,14 @@
 				<integer>0</integer>
 				<key>keyword</key>
 				<string>sim</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
 				<key>runningsubtext</key>
 				<string>Searching for apps matching {query}</string>
 				<key>script</key>
@@ -142,6 +172,14 @@
 				<integer>127</integer>
 				<key>keyword</key>
 				<string>simdel</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
 				<key>runningsubtext</key>
 				<string>Please wait</string>
 				<key>script</key>
@@ -160,6 +198,69 @@
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>All iOS Simulators have been Reset if possible</string>
+				<key>title</key>
+				<string>Simulators Reset</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>7A9B4E1F-0B3A-40F9-A85A-201C599CDD90</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>script</key>
+				<string>ruby ./reset-all.rb</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>0F91FB1D-068E-48DE-AF19-A5DFA2A1A2F3</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>simreset</string>
+				<key>subtext</key>
+				<string>Resets all iOS simulators in all found Xcodes</string>
+				<key>text</key>
+				<string>Reset iOS Simulators</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>15E7ABF3-218E-47E5-B120-83DEBC938433</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -170,6 +271,16 @@
 			<key>ypos</key>
 			<real>210</real>
 		</dict>
+		<key>0F91FB1D-068E-48DE-AF19-A5DFA2A1A2F3</key>
+		<dict>
+			<key>ypos</key>
+			<real>360</real>
+		</dict>
+		<key>15E7ABF3-218E-47E5-B120-83DEBC938433</key>
+		<dict>
+			<key>ypos</key>
+			<real>390</real>
+		</dict>
 		<key>38DFD2DA-6DD1-403F-8F71-499B98BCCADD</key>
 		<dict>
 			<key>ypos</key>
@@ -178,7 +289,12 @@
 		<key>4EB61527-10BC-40EE-9185-E988A89344D7</key>
 		<dict>
 			<key>ypos</key>
-			<real>60</real>
+			<real>110</real>
+		</dict>
+		<key>7A9B4E1F-0B3A-40F9-A85A-201C599CDD90</key>
+		<dict>
+			<key>ypos</key>
+			<real>330</real>
 		</dict>
 		<key>8C7D1146-E66D-46AF-9EDE-A63D50164F16</key>
 		<dict>
