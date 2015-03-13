@@ -63,6 +63,28 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>AC920237-C64C-4EE1-AF78-C60125CC3460</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C7DBD597-2AC9-4177-BC16-176EBB6A2D86</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>C7DBD597-2AC9-4177-BC16-176EBB6A2D86</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C11961A2-A67A-4D48-8792-90AA10AD8E4C</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Jeremy Knope</string>
@@ -71,7 +93,7 @@
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>iOS Simulator v1.1</string>
+	<string>iOS Simulator v1.2</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -84,13 +106,13 @@
 				<key>keyword</key>
 				<string>sim</string>
 				<key>queuedelaycustom</key>
-				<integer>1</integer>
+				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
 				<false/>
 				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
 				<integer>1</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
 				<key>runningsubtext</key>
 				<string>Searching for apps matching {query}</string>
 				<key>script</key>
@@ -124,37 +146,17 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttype</key>
-				<integer>0</integer>
 				<key>escaping</key>
-				<integer>127</integer>
-				<key>keyword</key>
-				<string>simdel</string>
-				<key>queuedelaycustom</key>
-				<integer>1</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<false/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>Please wait</string>
+				<integer>126</integer>
 				<key>script</key>
-				<string>python ./find_app_ids.py "{query}"</string>
-				<key>subtext</key>
-				<string>Uninstalls selected app from its simualtor</string>
-				<key>title</key>
-				<string>Uninstall Simulator App</string>
+				<string>python ./uninstall_app.py {query}</string>
 				<key>type</key>
 				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>8C7D1146-E66D-46AF-9EDE-A63D50164F16</string>
+			<string>963E6413-9DDC-4642-A184-14764565F549</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -186,17 +188,37 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
 				<key>escaping</key>
-				<integer>126</integer>
+				<integer>127</integer>
+				<key>keyword</key>
+				<string>simdel</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>1</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Please wait</string>
 				<key>script</key>
-				<string>python ./uninstall_app.py {query}</string>
+				<string>python ./find_app_ids.py "{query}"</string>
+				<key>subtext</key>
+				<string>Uninstalls selected app from its simualtor</string>
+				<key>title</key>
+				<string>Uninstall Simulator App</string>
 				<key>type</key>
 				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.script</string>
+			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>963E6413-9DDC-4642-A184-14764565F549</string>
+			<string>8C7D1146-E66D-46AF-9EDE-A63D50164F16</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -218,6 +240,23 @@
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
 			<string>15E7ABF3-218E-47E5-B120-83DEBC938433</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>script</key>
+				<string>ruby ./reset-all.rb</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>0F91FB1D-068E-48DE-AF19-A5DFA2A1A2F3</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -249,6 +288,23 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>script</key>
+				<string>python ./erase_device.py "{query}"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>C7DBD597-2AC9-4177-BC16-176EBB6A2D86</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -262,15 +318,15 @@
 				<key>queuedelaymode</key>
 				<integer>0</integer>
 				<key>queuemode</key>
-				<integer>2</integer>
+				<integer>1</integer>
 				<key>runningsubtext</key>
-				<string>Please wait</string>
+				<string>Please Wait</string>
 				<key>script</key>
-				<string>python ./find_device_ids.py {query}</string>
+				<string>python ./find_device_ids.py "{query}"</string>
 				<key>subtext</key>
-				<string>Erases simulator devices</string>
+				<string>Erases a particular iOS Simulator</string>
 				<key>title</key>
-				<string>Erase Simulator Devices</string>
+				<string>Erase a iOS Simulator</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
@@ -279,24 +335,32 @@
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>2654A082-D0EF-44A3-8D50-74C583FFCCE6</string>
+			<string>AC920237-C64C-4EE1-AF78-C60125CC3460</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>escaping</key>
-				<integer>127</integer>
-				<key>script</key>
-				<string>ruby ./reset-all.rb</string>
-				<key>type</key>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
 				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Simulator Erased</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.script</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>0F91FB1D-068E-48DE-AF19-A5DFA2A1A2F3</string>
+			<string>C11961A2-A67A-4D48-8792-90AA10AD8E4C</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -308,22 +372,17 @@
 		<key>04421F78-4E29-45C8-95EC-987A6F26F016</key>
 		<dict>
 			<key>ypos</key>
-			<real>210</real>
+			<real>140</real>
 		</dict>
 		<key>0F91FB1D-068E-48DE-AF19-A5DFA2A1A2F3</key>
 		<dict>
 			<key>ypos</key>
-			<real>360</real>
+			<real>240</real>
 		</dict>
 		<key>15E7ABF3-218E-47E5-B120-83DEBC938433</key>
 		<dict>
 			<key>ypos</key>
 			<real>240</real>
-		</dict>
-		<key>2654A082-D0EF-44A3-8D50-74C583FFCCE6</key>
-		<dict>
-			<key>ypos</key>
-			<real>360</real>
 		</dict>
 		<key>38DFD2DA-6DD1-403F-8F71-499B98BCCADD</key>
 		<dict>
@@ -333,12 +392,12 @@
 		<key>4EB61527-10BC-40EE-9185-E988A89344D7</key>
 		<dict>
 			<key>ypos</key>
-			<real>110</real>
+			<real>40</real>
 		</dict>
 		<key>7A9B4E1F-0B3A-40F9-A85A-201C599CDD90</key>
 		<dict>
 			<key>ypos</key>
-			<real>330</real>
+			<real>240</real>
 		</dict>
 		<key>8C7D1146-E66D-46AF-9EDE-A63D50164F16</key>
 		<dict>
@@ -348,7 +407,22 @@
 		<key>963E6413-9DDC-4642-A184-14764565F549</key>
 		<dict>
 			<key>ypos</key>
-			<real>240</real>
+			<real>140</real>
+		</dict>
+		<key>AC920237-C64C-4EE1-AF78-C60125CC3460</key>
+		<dict>
+			<key>ypos</key>
+			<real>340</real>
+		</dict>
+		<key>C11961A2-A67A-4D48-8792-90AA10AD8E4C</key>
+		<dict>
+			<key>ypos</key>
+			<real>340</real>
+		</dict>
+		<key>C7DBD597-2AC9-4177-BC16-176EBB6A2D86</key>
+		<dict>
+			<key>ypos</key>
+			<real>340</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
