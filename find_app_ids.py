@@ -13,6 +13,7 @@ def search_key_for_app(app):
     elements = []
     elements.append(app['name'])
     elements.append(app['id'])
+    elements.append(app['device']['name'])
     return u' '.join(elements)
 
 
