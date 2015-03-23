@@ -52,7 +52,7 @@ def main(wf):
         appName = '%s (%s - %s)' % (app['name'], app['device']['name'], app['device']['runtime'])
 
         wf.add_item(title=appName,
-                    subtitle=app['short_path'],
+                    subtitle=app['short_path'] + ' - ' + app['id'],
                     arg=app['data_path'],
                     valid=True,
                     icon=app['icon'],
