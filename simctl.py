@@ -1,20 +1,60 @@
 import os
 from glob import glob
 import re
-from subprocess import check_output, CalledProcessError, STDOUT
+from subprocess import check_output, CalledProcessError, STDOUT, call
 
 XCODES = glob("/Applications/Xcode*.app")
 # Contents/Developer/Applications/iOS\ Simulator.app
+
+class SimDevice(object):
+	def __init__(self, info):
+		self.updateWithInfo(info)
+		self.info = info
+	def updateWithInfo(self, info):
+		self.deviceId = info['id']
+		self.name = info['name']
+		self.state = info['state']
+	def isBooted(self):
+		if self.state == 'Booted':
+			return True
+		return False
+	def addXcrun(self, xcrun):
+		self.info['xcruns'].append(xcrun)
+	def addXcode(self, xcode):
+		self.info['xcodes'].append(xcode)
+	def getXcrun(self, xcrunIndex=0):
+		return self.info['xcruns'][xcrunIndex]
 
 class SimControl(object):
 	def __init__(self):
 		self.devices = {}
 		pass
 
-	def activeDevices(self):
+	def bootDevice(self, device):
+		result = call([device.getXcrun(), 'simctl', 'boot', device.deviceId])
+		if result != 0:
+			return False
+		return True
+	def shutdownDevice(self, device):
+		result = call([device.getXcrun(), 'simctl', 'shutdown', device.deviceId])
+		if result != 0:
+			return False
+		return True
+	def uninstallApp(self, device, app_id):
+		result = call([device.getXcrun(), 'simctl', 'uninstall', device.deviceId, app_id])
+		if result != 0:
+			print "Failed to uninstall app: %s" % (app_id)
+			return False
+		return True
+
+	def deviceLookupHash(self):
+		self.loadDevices()
+		return self.devices
+
+	def loadDevices(self):
 		for xcode in XCODES:
 			xcrun = os.path.join(xcode, 'Contents/Developer/usr/bin/xcrun')
-			result = check_output([xcrun, 'simctl', 'list'])
+			result = check_output([xcrun, 'simctl', 'list', 'devices'])
 			lines = re.split("\n+", result)
 			currentOS = ''
 			for line in lines:
@@ -39,13 +79,17 @@ class SimControl(object):
 						'xcruns': [xcrun],
 						'xcodes': [os.path.basename(xcode)],
 						'version': currentOS}
-					if self.devices.has_key(deviceID):
-						info = self.devices[deviceID]
-						info['xcruns'].append(xcrun)
-						info['xcodes'].append(os.path.basename(xcode))
-					else:
-						self.devices[deviceID] = info
 
+					if self.devices.has_key(deviceID):
+						device = self.devices[deviceID]
+						device.addXcrun(xcrun)
+						device.addXcode(xcode)
+					else:
+						device = SimDevice(info)
+						self.devices[deviceID] = device
+
+	def activeDevices(self):
+		self.loadDevices()
 		return self.devices.values()
 
 if __name__ == '__main__':
