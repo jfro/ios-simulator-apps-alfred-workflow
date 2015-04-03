@@ -29,6 +29,8 @@ if canUninstall:
 	result = simctl.uninstallApp(device, app_id)
 	if result != True:
 		print "Failed to uninstall app: %s" % (app_id)
+	else:
+		print 'Successfully uninstalled %s' % (app_id)
 
 # shutdown if we had to boot it
 if shouldRun:
