@@ -52,7 +52,8 @@ class DeviceInfo(object):
 def get_plist_key(path, key):
     try:
         result = check_output(['/usr/libexec/PlistBuddy', '-c', ("Print :%s" % (key)), path], stderr=STDOUT)
-        return result.strip()
+        result = result.strip()
+        return unicode( result, "utf-8" )
     except CalledProcessError, e:
         pass
     return None
@@ -105,6 +106,7 @@ def get_app_icon(appPath):
 def get_sim6_items(data_paths, device_info):
     appPaths = []
     for file in glob.glob(SIM_DIRAPP_SEARCH):
+        file = unicode( file, "utf-8" )
         deviceId = get_device_id_for_app_path(file)
         plistPath = join(file, 'Info.plist')
         appId = get_plist_key(plistPath, 'CFBundleIdentifier')

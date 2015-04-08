@@ -7,6 +7,7 @@ import siminfo
 from workflow import (Workflow, ICON_WEB, ICON_INFO, ICON_WARNING,
                       PasswordNotFound)
 from workflow.background import run_in_background, is_running
+from os.path import dirname
 
 
 def search_key_for_app(app):
@@ -25,6 +26,9 @@ def main(wf):
     parser = argparse.ArgumentParser()
 
     parser.add_argument('query', nargs='?', default=None)
+    parser.add_argument('--apps', dest='appPaths',
+                   const=True, default=False, action='store_const',
+                   help='Produces path to apps instead')
     # parse the script's arguments
     args = parser.parse_args(wf.args)
 
@@ -33,6 +37,7 @@ def main(wf):
     ####################################################################
 
     query = args.query
+    appPaths = args.appPaths
 
     apps = siminfo.getSimAppResults(wf.cachedir)
 
@@ -50,10 +55,12 @@ def main(wf):
     # the list of results for Alfred
     for app in apps:
         appName = '%s (%s - %s)' % (app['name'], app['device']['name'], app['device']['runtime'])
-
+        path = app['data_path']
+        if appPaths:
+            path = dirname(app['path'])
         wf.add_item(title=appName,
                     subtitle=app['short_path'] + ' - ' + app['id'],
-                    arg=app['data_path'],
+                    arg=path,
                     valid=True,
                     icon=app['icon'],
                     uid=app['data_path'])

@@ -85,6 +85,17 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>FAB50204-41C8-459B-A7C4-55C2452D7033</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>4EB61527-10BC-40EE-9185-E988A89344D7</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Jeremy Knope</string>
@@ -93,9 +104,19 @@
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>iOS Simulator v1.2</string>
+	<string>iOS Simulator v1.3</string>
 	<key>objects</key>
 	<array>
+		<dict>
+			<key>config</key>
+			<dict/>
+			<key>type</key>
+			<string>alfred.workflow.action.openfile</string>
+			<key>uid</key>
+			<string>4EB61527-10BC-40EE-9185-E988A89344D7</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
@@ -135,13 +156,65 @@
 		</dict>
 		<dict>
 			<key>config</key>
-			<dict/>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Uninstall Simulator App</string>
+			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.openfile</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>4EB61527-10BC-40EE-9185-E988A89344D7</string>
+			<string>04421F78-4E29-45C8-95EC-987A6F26F016</string>
 			<key>version</key>
-			<integer>1</integer>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>keyword</key>
+				<string>sima</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching for apps matching {query}</string>
+				<key>script</key>
+				<string>python ./find_sim_apps.py --apps "{query}"</string>
+				<key>subtext</key>
+				<string>Open location of an iOS Simulator app</string>
+				<key>title</key>
+				<string>Simulator apps</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>FAB50204-41C8-459B-A7C4-55C2452D7033</string>
+			<key>version</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -163,25 +236,17 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>output</key>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>script</key>
+				<string>ruby ./reset-all.rb</string>
+				<key>type</key>
 				<integer>0</integer>
-				<key>removeextension</key>
-				<false/>
-				<key>sticky</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Uninstall Simulator App</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>04421F78-4E29-45C8-95EC-987A6F26F016</string>
+			<string>0F91FB1D-068E-48DE-AF19-A5DFA2A1A2F3</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -219,44 +284,6 @@
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>8C7D1146-E66D-46AF-9EDE-A63D50164F16</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>simreset</string>
-				<key>subtext</key>
-				<string>Resets all iOS simulators in all found Xcodes</string>
-				<key>text</key>
-				<string>Reset iOS Simulators</string>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>15E7ABF3-218E-47E5-B120-83DEBC938433</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>escaping</key>
-				<integer>127</integer>
-				<key>script</key>
-				<string>ruby ./reset-all.rb</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>0F91FB1D-068E-48DE-AF19-A5DFA2A1A2F3</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -305,6 +332,52 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Simulator Erased</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>C11961A2-A67A-4D48-8792-90AA10AD8E4C</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>simreset</string>
+				<key>subtext</key>
+				<string>Resets all iOS simulators in all found Xcodes</string>
+				<key>text</key>
+				<string>Reset iOS Simulators</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>15E7ABF3-218E-47E5-B120-83DEBC938433</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -339,31 +412,6 @@
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>output</key>
-				<integer>0</integer>
-				<key>removeextension</key>
-				<false/>
-				<key>sticky</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Simulator Erased</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>C11961A2-A67A-4D48-8792-90AA10AD8E4C</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -382,7 +430,7 @@
 		<key>15E7ABF3-218E-47E5-B120-83DEBC938433</key>
 		<dict>
 			<key>ypos</key>
-			<real>240</real>
+			<real>340</real>
 		</dict>
 		<key>38DFD2DA-6DD1-403F-8F71-499B98BCCADD</key>
 		<dict>
@@ -402,7 +450,7 @@
 		<key>8C7D1146-E66D-46AF-9EDE-A63D50164F16</key>
 		<dict>
 			<key>ypos</key>
-			<real>140</real>
+			<real>240</real>
 		</dict>
 		<key>963E6413-9DDC-4642-A184-14764565F549</key>
 		<dict>
@@ -412,7 +460,7 @@
 		<key>AC920237-C64C-4EE1-AF78-C60125CC3460</key>
 		<dict>
 			<key>ypos</key>
-			<real>340</real>
+			<real>440</real>
 		</dict>
 		<key>C11961A2-A67A-4D48-8792-90AA10AD8E4C</key>
 		<dict>
@@ -424,8 +472,13 @@
 			<key>ypos</key>
 			<real>340</real>
 		</dict>
+		<key>FAB50204-41C8-459B-A7C4-55C2452D7033</key>
+		<dict>
+			<key>ypos</key>
+			<real>140</real>
+		</dict>
 	</dict>
 	<key>webaddress</key>
-	<string></string>
+	<string>https://github.com/jfro/ios-simulator-apps-alfred-workflow/</string>
 </dict>
 </plist>
