@@ -12,8 +12,9 @@ from workflow.background import run_in_background, is_running
 def search_key_for_device(device):
     """Generate a string search key for a device"""
     elements = []
-    elements.append(device['name'])
-    elements.append(device['id'])
+    elements.append(device.name)
+    elements.append(device.deviceId)
+    elements.append(device.version)
     return u' '.join(elements)
 
 
@@ -48,13 +49,13 @@ def main(wf):
     # Loop through the returned posts and add a item for each to
     # the list of results for Alfred
     for device in devices:
-        deviceName = '%s (%s)' % (device['name'], device['version'])
+        deviceName = '%s (%s)' % (device.name, device.version)
 
         wf.add_item(title=deviceName,
-                    subtitle=', '.join(device['xcodes']),
-                    arg=device['id'],
+                    subtitle=', '.join(device.info['xcodes']),
+                    arg=device.deviceId,
                     valid=True,
-                    uid=device['id'])
+                    uid=device.deviceId)
 
     # Send the results to Alfred as XML
     wf.send_feedback()

@@ -14,6 +14,7 @@ class SimDevice(object):
 		self.deviceId = info['id']
 		self.name = info['name']
 		self.state = info['state']
+		self.version = info['version']
 	def isBooted(self):
 		if self.state == 'Booted':
 			return True

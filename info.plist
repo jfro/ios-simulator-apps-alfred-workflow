@@ -125,7 +125,7 @@
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>sim</string>
+				<string>simd</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -219,6 +219,8 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>126</integer>
 				<key>script</key>
@@ -236,6 +238,8 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
@@ -258,7 +262,7 @@
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>keyword</key>
-				<string>simdel</string>
+				<string>simun</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -270,7 +274,7 @@
 				<key>runningsubtext</key>
 				<string>Please wait</string>
 				<key>script</key>
-				<string>python ./find_app_ids.py "{query}"</string>
+				<string>python ./find_app_ids.py --no-watch "{query}"</string>
 				<key>subtext</key>
 				<string>Uninstalls selected app from its simualtor</string>
 				<key>title</key>
@@ -315,6 +319,8 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
