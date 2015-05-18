@@ -103,13 +103,14 @@ def get_app_icon(appPath):
 
     return None
 
-def get_sim6_items(data_paths, device_info):
+def get_sim6_items(data_paths, device_info, include_watch=True):
     appPaths = []
     for file in glob.glob(SIM_DIRAPP_SEARCH):
         file = unicode( file, "utf-8" )
         deviceId = get_device_id_for_app_path(file)
         plistPath = join(file, 'Info.plist')
         appId = get_plist_key(plistPath, 'CFBundleIdentifier')
+        isWatchApp = get_plist_key(plistPath, 'WKWatchKitApp')
         lookupKey = deviceId + '-' + appId
         if lookupKey in data_paths:
             dataPath = data_paths[lookupKey]
@@ -127,17 +128,18 @@ def get_sim6_items(data_paths, device_info):
             'device': device_info.infoForDevice(deviceId),
             'icon': get_app_icon(file)
         }
-        appPaths.append(appInfo)
+        if include_watch or not isWatchApp:
+            appPaths.append(appInfo)
     return appPaths
 
-def getSimAppResults(cachePath):
+def getSimAppResults(cachePath, include_watch=True):
     data_paths = get_sim6_data_paths()
     #devices_info = get_device_infos()
     device_info = DeviceInfo(cachePath)
-    def get_items():
-        #wf.logger.debug('Finding apps')
-        return get_sim6_items(data_paths, device_info)
-    apps = get_sim6_items(data_paths, device_info) #wf.cached_data('sim6_items', get_items, max_age=0)
+    #def get_items():
+    #    #wf.logger.debug('Finding apps')
+    #    return get_sim6_items(data_paths, device_info)
+    apps = get_sim6_items(data_paths, device_info, include_watch) #wf.cached_data('sim6_items', get_items, max_age=0)
     device_info.updateCache()
     return apps
 

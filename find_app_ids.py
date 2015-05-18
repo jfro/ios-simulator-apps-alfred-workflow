@@ -24,6 +24,7 @@ def main(wf):
     parser = argparse.ArgumentParser()
 
     parser.add_argument('query', nargs='?', default=None)
+    parser.add_argument('--no-watch', dest='include_watch', action='store_false', help='excludes embedded watch apps from results')
     # parse the script's arguments
     args = parser.parse_args(wf.args)
 
@@ -34,7 +35,7 @@ def main(wf):
     query = args.query
 
     
-    apps = siminfo.getSimAppResults(wf.cachedir)
+    apps = siminfo.getSimAppResults(wf.cachedir, args.include_watch)
 
     # If script was passed a query, use it to filter posts if we have some
     if query and apps:
