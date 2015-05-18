@@ -104,7 +104,7 @@
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>iOS Simulator v1.3</string>
+	<string>iOS Simulator v1.3.1</string>
 	<key>objects</key>
 	<array>
 		<dict>

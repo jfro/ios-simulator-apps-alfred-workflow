@@ -134,32 +134,19 @@ def get_sim6_items(data_paths, device_info, include_watch=True):
 
 def getSimAppResults(cachePath, include_watch=True):
     data_paths = get_sim6_data_paths()
-    #devices_info = get_device_infos()
     device_info = DeviceInfo(cachePath)
-    #def get_items():
-    #    #wf.logger.debug('Finding apps')
-    #    return get_sim6_items(data_paths, device_info)
-    apps = get_sim6_items(data_paths, device_info, include_watch) #wf.cached_data('sim6_items', get_items, max_age=0)
+    apps = get_sim6_items(data_paths, device_info, include_watch)
     device_info.updateCache()
     return apps
 
 def main(wf):
     data_paths = get_sim6_data_paths()
-    #devices_info = get_device_infos()
     device_info = DeviceInfo(wf.cachedir)
-    def get_items():
-        print "What"
-        #wf.logger.debug('Finding apps')
-        return get_sim6_items(data_paths, device_info)
-    apps = get_sim6_items(data_paths, device_info) #wf.cached_data('sim6_items', get_items, max_age=0)
+    apps = get_sim6_items(data_paths, device_info)
     print "Done: "
     print len(apps)
     device_info.updateCache()
-    # Record our progress in the log file
-    #wf.logger.debug('{} Apps cached'.format(len(apps)))
 
 if __name__ == '__main__':
-    #wf = Workflow()
-    #wf.run(main)
     main(None)
 
