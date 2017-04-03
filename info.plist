@@ -17,6 +17,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 		<key>15E7ABF3-218E-47E5-B120-83DEBC938433</key>
@@ -28,6 +30,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 		<key>38DFD2DA-6DD1-403F-8F71-499B98BCCADD</key>
@@ -39,6 +43,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 		<key>8C7D1146-E66D-46AF-9EDE-A63D50164F16</key>
@@ -50,6 +56,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 		<key>963E6413-9DDC-4642-A184-14764565F549</key>
@@ -61,6 +69,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 		<key>AC920237-C64C-4EE1-AF78-C60125CC3460</key>
@@ -72,6 +82,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 		<key>C7DBD597-2AC9-4177-BC16-176EBB6A2D86</key>
@@ -83,6 +95,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 		<key>FAB50204-41C8-459B-A7C4-55C2452D7033</key>
@@ -94,6 +108,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 	</dict>
@@ -104,22 +120,29 @@
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>iOS Simulator v1.3.1</string>
+	<string>iOS Simulator v1.3.2</string>
 	<key>objects</key>
 	<array>
 		<dict>
 			<key>config</key>
-			<dict/>
+			<dict>
+				<key>openwith</key>
+				<string></string>
+				<key>sourcefile</key>
+				<string></string>
+			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.openfile</string>
 			<key>uid</key>
 			<string>4EB61527-10BC-40EE-9185-E988A89344D7</string>
 			<key>version</key>
-			<integer>1</integer>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -138,6 +161,10 @@
 				<string>Searching for apps matching {query}</string>
 				<key>script</key>
 				<string>python ./find_sim_apps.py "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
 				<key>subtext</key>
 				<string>Search for apps matching {query}</string>
 				<key>title</key>
@@ -152,7 +179,7 @@
 			<key>uid</key>
 			<string>38DFD2DA-6DD1-403F-8F71-499B98BCCADD</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -161,11 +188,7 @@
 				<false/>
 				<key>onlyshowifquerypopulated</key>
 				<false/>
-				<key>output</key>
-				<integer>0</integer>
 				<key>removeextension</key>
-				<false/>
-				<key>sticky</key>
 				<false/>
 				<key>text</key>
 				<string>{query}</string>
@@ -177,11 +200,13 @@
 			<key>uid</key>
 			<string>04421F78-4E29-45C8-95EC-987A6F26F016</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -200,6 +225,10 @@
 				<string>Searching for apps matching {query}</string>
 				<key>script</key>
 				<string>python ./find_sim_apps.py --apps "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
 				<key>subtext</key>
 				<string>Open location of an iOS Simulator app</string>
 				<key>title</key>
@@ -214,7 +243,7 @@
 			<key>uid</key>
 			<string>FAB50204-41C8-459B-A7C4-55C2452D7033</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -225,6 +254,10 @@
 				<integer>126</integer>
 				<key>script</key>
 				<string>python ./uninstall_app.py {query}</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -233,7 +266,7 @@
 			<key>uid</key>
 			<string>963E6413-9DDC-4642-A184-14764565F549</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -244,6 +277,10 @@
 				<integer>127</integer>
 				<key>script</key>
 				<string>ruby ./reset-all.rb</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -252,11 +289,13 @@
 			<key>uid</key>
 			<string>0F91FB1D-068E-48DE-AF19-A5DFA2A1A2F3</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -275,6 +314,10 @@
 				<string>Please wait</string>
 				<key>script</key>
 				<string>python ./find_app_ids.py --no-watch "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
 				<key>subtext</key>
 				<string>Uninstalls selected app from its simualtor</string>
 				<key>title</key>
@@ -289,7 +332,7 @@
 			<key>uid</key>
 			<string>8C7D1146-E66D-46AF-9EDE-A63D50164F16</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -298,11 +341,7 @@
 				<false/>
 				<key>onlyshowifquerypopulated</key>
 				<false/>
-				<key>output</key>
-				<integer>0</integer>
 				<key>removeextension</key>
-				<false/>
-				<key>sticky</key>
 				<false/>
 				<key>text</key>
 				<string>All iOS Simulators have been Reset if possible</string>
@@ -314,7 +353,7 @@
 			<key>uid</key>
 			<string>7A9B4E1F-0B3A-40F9-A85A-201C599CDD90</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -325,6 +364,10 @@
 				<integer>127</integer>
 				<key>script</key>
 				<string>python ./erase_device.py "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -333,7 +376,7 @@
 			<key>uid</key>
 			<string>C7DBD597-2AC9-4177-BC16-176EBB6A2D86</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -342,11 +385,7 @@
 				<false/>
 				<key>onlyshowifquerypopulated</key>
 				<false/>
-				<key>output</key>
-				<integer>0</integer>
 				<key>removeextension</key>
-				<false/>
-				<key>sticky</key>
 				<false/>
 				<key>text</key>
 				<string>{query}</string>
@@ -358,7 +397,7 @@
 			<key>uid</key>
 			<string>C11961A2-A67A-4D48-8792-90AA10AD8E4C</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -379,11 +418,13 @@
 			<key>uid</key>
 			<string>15E7ABF3-218E-47E5-B120-83DEBC938433</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -402,6 +443,10 @@
 				<string>Please Wait</string>
 				<key>script</key>
 				<string>python ./find_device_ids.py "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
 				<key>subtext</key>
 				<string>Erases a particular iOS Simulator</string>
 				<key>title</key>
@@ -416,7 +461,7 @@
 			<key>uid</key>
 			<string>AC920237-C64C-4EE1-AF78-C60125CC3460</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -425,61 +470,85 @@
 	<dict>
 		<key>04421F78-4E29-45C8-95EC-987A6F26F016</key>
 		<dict>
+			<key>xpos</key>
+			<integer>700</integer>
 			<key>ypos</key>
 			<real>140</real>
 		</dict>
 		<key>0F91FB1D-068E-48DE-AF19-A5DFA2A1A2F3</key>
 		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
 			<key>ypos</key>
 			<real>240</real>
 		</dict>
 		<key>15E7ABF3-218E-47E5-B120-83DEBC938433</key>
 		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
 			<key>ypos</key>
 			<real>340</real>
 		</dict>
 		<key>38DFD2DA-6DD1-403F-8F71-499B98BCCADD</key>
 		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
 			<key>ypos</key>
 			<real>40</real>
 		</dict>
 		<key>4EB61527-10BC-40EE-9185-E988A89344D7</key>
 		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
 			<key>ypos</key>
 			<real>40</real>
 		</dict>
 		<key>7A9B4E1F-0B3A-40F9-A85A-201C599CDD90</key>
 		<dict>
+			<key>xpos</key>
+			<integer>700</integer>
 			<key>ypos</key>
 			<real>240</real>
 		</dict>
 		<key>8C7D1146-E66D-46AF-9EDE-A63D50164F16</key>
 		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
 			<key>ypos</key>
 			<real>240</real>
 		</dict>
 		<key>963E6413-9DDC-4642-A184-14764565F549</key>
 		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
 			<key>ypos</key>
 			<real>140</real>
 		</dict>
 		<key>AC920237-C64C-4EE1-AF78-C60125CC3460</key>
 		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
 			<key>ypos</key>
 			<real>440</real>
 		</dict>
 		<key>C11961A2-A67A-4D48-8792-90AA10AD8E4C</key>
 		<dict>
+			<key>xpos</key>
+			<integer>700</integer>
 			<key>ypos</key>
 			<real>340</real>
 		</dict>
 		<key>C7DBD597-2AC9-4177-BC16-176EBB6A2D86</key>
 		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
 			<key>ypos</key>
 			<real>340</real>
 		</dict>
 		<key>FAB50204-41C8-459B-A7C4-55C2452D7033</key>
 		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
 			<key>ypos</key>
 			<real>140</real>
 		</dict>
