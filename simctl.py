@@ -32,17 +32,17 @@ class SimControl(object):
 		pass
 
 	def bootDevice(self, device):
-		result = call([device.getXcrun(), 'simctl', 'boot', device.deviceId])
+		result = call([device.getXcrun(), 'boot', device.deviceId])
 		if result != 0:
 			return False
 		return True
 	def shutdownDevice(self, device):
-		result = call([device.getXcrun(), 'simctl', 'shutdown', device.deviceId])
+		result = call([device.getXcrun(), 'shutdown', device.deviceId])
 		if result != 0:
 			return False
 		return True
 	def uninstallApp(self, device, app_id):
-		result = call([device.getXcrun(), 'simctl', 'uninstall', device.deviceId, app_id])
+		result = call([device.getXcrun(), 'uninstall', device.deviceId, app_id])
 		if result != 0:
 			print "Failed to uninstall app: %s" % (app_id)
 			return False
@@ -54,8 +54,8 @@ class SimControl(object):
 
 	def loadDevices(self):
 		for xcode in XCODES:
-			xcrun = os.path.join(xcode, 'Contents/Developer/usr/bin/xcrun')
-			result = check_output([xcrun, 'simctl', 'list', 'devices'])
+			xcrun = os.path.join(xcode, 'Contents/Developer/usr/bin/simctl')
+			result = check_output([xcrun, 'list', 'devices'])
 			lines = re.split("\n+", result)
 			currentOS = ''
 			for line in lines:

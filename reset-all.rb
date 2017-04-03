@@ -2,7 +2,11 @@
 xcodes = Dir.glob("/Applications/Xcode*.app")
 puts xcodes
 xcodes.each do |xcode|
-	simctl = "#{xcode}/Contents/Developer/usr/bin/xcrun simctl"
+	if File.exist? "#{xcode}/Contents/Developer/usr/bin/xcrun"
+		simctl = "#{xcode}/Contents/Developer/usr/bin/xcrun simctl"
+	else
+		simctl = "#{xcode}/Contents/Developer/usr/bin/simctl"
+	end
 	puts "#{simctl} list"
 	out = %x{#{simctl} list}
 	out.lines.each do |line|
