@@ -73,6 +73,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>A7842737-296F-4F63-AB60-D680D0B272A9</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B1C5765D-DBD9-4D1E-B32B-ABFFA899C211</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>AC920237-C64C-4EE1-AF78-C60125CC3460</key>
 		<array>
 			<dict>
@@ -120,7 +133,7 @@
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>iOS Simulator v1.3.2</string>
+	<string>iOS Simulator v1.3.3</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -463,6 +476,55 @@
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>simu</string>
+				<key>subtext</key>
+				<string>Opens URL on pasteboard or given URL in simulator</string>
+				<key>text</key>
+				<string>Open URL in Simulator</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>A7842737-296F-4F63-AB60-D680D0B272A9</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>query=$1
+if [ "$query" == "" ]; then
+	query=`pbpaste`
+fi
+
+python ./open_url.py "$query"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>B1C5765D-DBD9-4D1E-B32B-ABFFA899C211</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -524,12 +586,26 @@
 			<key>ypos</key>
 			<real>140</real>
 		</dict>
+		<key>A7842737-296F-4F63-AB60-D680D0B272A9</key>
+		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<integer>560</integer>
+		</dict>
 		<key>AC920237-C64C-4EE1-AF78-C60125CC3460</key>
 		<dict>
 			<key>xpos</key>
 			<integer>300</integer>
 			<key>ypos</key>
 			<real>440</real>
+		</dict>
+		<key>B1C5765D-DBD9-4D1E-B32B-ABFFA899C211</key>
+		<dict>
+			<key>xpos</key>
+			<integer>510</integer>
+			<key>ypos</key>
+			<integer>560</integer>
 		</dict>
 		<key>C11961A2-A67A-4D48-8792-90AA10AD8E4C</key>
 		<dict>

@@ -47,6 +47,12 @@ class SimControl(object):
 			print "Failed to uninstall app: %s" % (app_id)
 			return False
 		return True
+	def openURL(self, device, url):
+		result = call([device.getXcrun(), 'openurl', device.deviceId, url])
+		if result != 0:
+			print "Failed to openurl app: %s" % (url)
+			return False
+		return True
 
 	def deviceLookupHash(self):
 		self.loadDevices()
